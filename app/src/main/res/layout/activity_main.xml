@@ -1,104 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
+
+    android:background="@color/colorAccent"
     tools:context="com.example.hp.speak_to_diary.MainActivity">
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Speak To Your Diary"
-        android:textColor="@color/textColor"
+        android:textColor="@color/colorPrimary"
         android:textSize="30dp"
         android:gravity="center"
         android:layout_marginTop="30dp"
         android:textStyle="bold"
         />
 
-    <RelativeLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        >
+        android:text="Password"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18dp"
+        android:id="@+id/tx1"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prompt_name"
-            android:textColor="@color/textColor"
-            android:textSize="18dp"
-            android:id="@+id/tx1"
-            android:layout_alignParentLeft="true"
-            android:textStyle="bold">
+    </TextView>
 
-        </TextView>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tx1"
-            android:id="@+id/name"
-            android:inputType="text"
-            android:textColor="@color/textColor"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/prompt_password"
-            android:textColor="@color/textColor"
-            android:textSize="18dp"
-            android:id="@+id/tx2"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/name"
-            android:textStyle="bold">
-
-        </TextView>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tx2"
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:textColor="@color/textColor"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/login_bn_label"
-            style="?android:textAppearanceSmall"
-            android:textStyle="bold"
-            android:layout_below="@+id/password"
-            android:layout_marginTop="35dp"
-            android:id="@+id/login_button"
-            android:background="@drawable/button_selecter"
-            android:textColor="@color/textColor"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        >
+        android:ems="10"
+        android:inputType="numberPassword"
+        android:layout_below="@+id/tx1"
+        android:layout_gravity="center"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_up_text"
-            android:textColor="@color/textColor"
-            android:textSize="18dp"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            android:id="@+id/sign_up"/>
-    </RelativeLayout>
-
-</android.support.constraint.ConstraintLayout>
+        />
+    <Button
+        android:id="@+id/open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/password"
+        android:text="open"
+        />
+    <Button
+        android:id="@+id/setpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@+id/open"
+        android:text="Set password"
+        android:onClick="setpassword"
+        />
+</LinearLayout>

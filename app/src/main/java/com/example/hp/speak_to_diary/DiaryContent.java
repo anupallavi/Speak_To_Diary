@@ -3,6 +3,7 @@ package com.example.hp.speak_to_diary;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -15,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +31,8 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
     Button save;
     ImageButton calendar,startRecognizer;
     private static final int RQS_RECOGNITION = 1;
+
+    private static final String DB_NAME = "myDBName.db";
     EditText editText;
     TextToSpeech tts;
 
@@ -52,7 +56,8 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
         editText = (EditText) findViewById(R.id.edittext);
         startRecognizer.setOnClickListener(startRecognizerOnClickListener);
         tts = new TextToSpeech(this, this);
-        myDB = new DatabaseHelper(this);
+       // myDB = new DatabaseHelper(this);
+        myDB = DatabaseHelper.getInstance(this, DB_NAME);
         contentdb = new ContentDatabase(this);
         save = (Button) findViewById(R.id.save_button);
         editText.append(content);
@@ -93,6 +98,8 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             //String query = "select " + DatabaseHelper.COL2 + "from " + DatabaseHelper.TABLE_NAME + "where " +DatabaseHelper.COL1+ " = " +result;
             //DisplayStringArray.append(result.get(0));
+
+
 
             Cursor cursor = myDB.translate(result);
 
