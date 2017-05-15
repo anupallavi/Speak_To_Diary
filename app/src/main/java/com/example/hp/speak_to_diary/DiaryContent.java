@@ -10,9 +10,12 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +26,7 @@ import java.util.ArrayList;
  * Created by Hp on 4/30/2017.
  */
 
-public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnInitListener{
+public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnInitListener,AdapterView.OnItemSelectedListener{
     TextView textView;
     Context context=this;
     DatabaseHelper myDB;
@@ -36,10 +39,41 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
     EditText editText;
     TextToSpeech tts;
 
+    String language;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diary_content);
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.language_arrays, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition(position);
+                // Notify the selected item text
+                Toast.makeText
+                        (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                        .show();
+                language = selectedItemText;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         Bundle dateData = getIntent().getExtras();
         if(dateData == null) {
@@ -99,17 +133,22 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
             //String query = "select " + DatabaseHelper.COL2 + "from " + DatabaseHelper.TABLE_NAME + "where " +DatabaseHelper.COL1+ " = " +result;
             //DisplayStringArray.append(result.get(0));
 
-
-
-            Cursor cursor = myDB.translate(result);
-
-            if (cursor.moveToNext()) {
-                editText.append(cursor.getString(0));
-            } else {
-
+            if (language.equals("English")) {
                 editText.append(result.get(0));
+            } else if (language.equals("Kannada")) {
+                Cursor cursor = DatabaseHelper.translate(result);
 
+                if (cursor.moveToNext()) {
+                    editText.append(cursor.getString(0));
+                } else {
+
+                    editText.append(result.get(0));
+
+                }
+                cursor.close();
             }
+
+
 
         }
     }
@@ -117,6 +156,16 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
     @Override
     public void onInit(int status) {
         startRecognizer.setEnabled(true);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
 

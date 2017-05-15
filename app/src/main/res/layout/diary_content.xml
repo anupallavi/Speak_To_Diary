@@ -32,13 +32,20 @@
             android:id="@+id/micButton"
             android:src="@drawable/mic"
             android:scaleType="fitCenter"
+            android:layout_toLeftOf="@+id/spinner"
+
+
+
+           />
+
+        <Spinner
+
+            android:id="@+id/spinner"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:background="@color/diaryContent"
-            android:layout_gravity="right"
-
-            android:weightSum="1"/>
-
+           />
 
 
 
