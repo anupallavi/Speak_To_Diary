@@ -35,7 +35,7 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
     ImageButton calendar,startRecognizer;
     private static final int RQS_RECOGNITION = 1;
 
-    private static final String DB_NAME = "myDBName.db";
+    private static final String DB_NAME = "kannada_words.db";
     EditText editText;
     TextToSpeech tts;
 
@@ -136,16 +136,23 @@ public class DiaryContent extends AppCompatActivity implements TextToSpeech.OnIn
             if (language.equals("English")) {
                 editText.append(result.get(0));
             } else if (language.equals("Kannada")) {
-                Cursor cursor = DatabaseHelper.translate(result);
 
-                if (cursor.moveToNext()) {
-                    editText.append(cursor.getString(0));
-                } else {
 
-                    editText.append(result.get(0));
+                String[] words = result.get(0).split(" ");
+                for (String str : words) {
 
+                    Cursor cursor = DatabaseHelper.translate(str);
+                    if (cursor.moveToNext()) {
+                        editText.append(cursor.getString(0));
+                    } else {
+
+                        editText.append(str);
+
+                    }
+                    cursor.close();
                 }
-                cursor.close();
+
+
             }
 
 

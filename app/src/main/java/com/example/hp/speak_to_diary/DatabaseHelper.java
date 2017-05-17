@@ -202,7 +202,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          Cursor data = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
          return data;
      }*/
-    public static Cursor translate(ArrayList<String> result){
+    public static Cursor translate(String result){
         //SQLiteDatabase db = this.getWritableDatabase();
 
 
@@ -222,7 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //Cursor cursor = db.rawQuery("SELECT myDB.COL2 FROM myDB.TABLE_NAME WHERE myDB.COL1 like '"+result.get(0)+"'",null);
             //  Cursor cursor = db.query(TABLE_NAME,new String[] {COL2}, COL1 + "=?",new String[] {result.get(0).toLowerCase()},null,null,null,null);
             //  return cursor;
-            cursor = sqliteDb.query(TABLE_NAME,new String[] {COL2}, COL1 + "=?",new String[] {result.get(0).toLowerCase()},null,null,null,null);
+            cursor = sqliteDb.query(TABLE_NAME,new String[] {COL2}, COL1 + "=?",new String[] {result.toLowerCase()},null,null,null,null);
         } catch (Exception e) {
             System.out.println("DB ERROR  " + e.getMessage());
             e.printStackTrace();
